@@ -3,32 +3,30 @@
 class Solution {
 public:
     bool increasingTriplet(vector<int>& nums) {
-        int n = nums.size();    //size of the array
-        
-        if(n < 3)     //if size of array is less than 3 then we need to return false by default because in constraints, range of nums length is [1 , 5*10^5]
-            return false;
-        
-        //we initilize two integer with INT_MAX value.
-        int left = INT_MAX;
-        int mid = INT_MAX;
-        
-        // traverse the whole array.
-        for(int i = 0; i < n ; i ++)
-        {
-            //if nums[i] is greater than mid means nums[i] is also greater than left means two elements before index i is less than nums[i] and that are left and mid. we find that it sataisfy the condition of triplet so we return true.
-            if(nums[i] > mid)
-                return true;
-            
-            //if nums[i] is greater than left and less than mid then it is clear that we find b in a < b < c because it is quite possible that c can be INT_MAX.
-            else if(nums[i] > left && nums[i] < mid)
-                mid = nums[i];
-            
-            //if nums[i] less than left then we update the value of left to nums[i] because we find a smaller element than it's previous value.
-            else if(nums[i] < left)
-                left = nums[i];
+        if(nums.size()<3) return false;
+        int first = nums[0],second = INT_MAX;
+        int n = nums.size(),maxi=INT_MIN;
+        int arr[nums.size()];
+        arr[n-1] = 0;
+        arr[n-2] = nums[n-1];
+        for(int i=n-3;i>=0;i--){
+             arr[i] = max(nums[i+1],arr[i+1]);             
         }
-        
-        //when we traversed whole array means there is no triplet so we return false.
+        for(int i=1;i<n;i++){
+            if(nums[i] < first){
+                second = INT_MAX;
+                first = nums[i];
+            }
+            else if(nums[i] > first && nums[i] < second){
+            second = nums[i];
+             if(arr[i] > second)
+             return true;
+            }
+            else if(nums[i] > second){
+                cout<<first<<" "<<second<<" "<<nums[i];
+            return true;
+            }
+        }
         return false;
     }
 };
