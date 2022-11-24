@@ -1,0 +1,46 @@
+//https://leetcode.com/problems/word-search/
+
+class Solution {
+public:
+    bool result(vector<vector<char>>&board,int i,int j,int k,string word,vector<vector<bool>>&visited){
+        int n = board.size(),m = board[0].size();
+        if(k == word.length()-1)
+        return true;
+        if(i<0 || i>=n || j<0 || j>=m || visited[i][j])
+        return false;
+        visited[i][j] = true;
+        if(i+1 < n && word[k+1] == board[i+1][j] && !visited[i+1][j]){
+            if(result(board,i+1,j,k+1,word,visited))
+            return true;
+        }
+         if(i-1 >=0 && word[k+1] == board[i-1][j] && !visited[i-1][j]){
+            if(result(board,i-1,j,k+1,word,visited))
+            return true;
+        }
+         if(j+1 < m && word[k+1] == board[i][j+1] && !visited[i][j+1]){
+            if(result(board,i,j+1,k+1,word,visited))
+            return true;
+        }
+         if(j-1 >=0 && word[k+1] == board[i][j-1] && !visited[i][j-1]){
+            if(result(board,i,j-1,k+1,word,visited))
+            return true;
+        }
+        visited[i][j] = false;
+        return false;
+    }
+    bool exist(vector<vector<char>>& board, string word) {
+        int n = board.size(),m = board[0].size();
+        
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+             
+                if(word[0] == board[i][j]){
+                       vector<vector<bool>>visited(n,vector<bool>(m,false));
+                    if(result(board,i,j,0,word,visited))
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+};
