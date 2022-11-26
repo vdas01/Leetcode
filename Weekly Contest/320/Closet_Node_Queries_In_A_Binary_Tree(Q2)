@@ -1,0 +1,114 @@
+//https://leetcode.com/contest/weekly-contest-320/problems/closest-nodes-queries-in-a-binary-search-tree/
+
+class Solution {
+public:
+    // void result(TreeNode* root,int target,int &floor,int &ceil){
+    //     if(!root)
+    //         return;
+    //     if(root->val == target){
+    //         floor = root->val;
+    //         ceil = root->val;
+    //         return;
+    //     }
+    //     else if(root->val > target && ceil > root->val)
+    //         ceil = root->val;
+    //     else if(root->val < target && floor < root->val)
+    //         floor = root->val;
+    //     result(root->left,target,floor,ceil);
+    //     result(root->right,target,floor,ceil);
+    // }
+//     void result1(TreeNode* root,int target,int &ceil){
+//         if(!root) return;
+//         if(root->val == target){
+//             ceil = root->val;
+//             return;
+//         }
+//         if(root->val > target){
+//             ceil = root->val;
+//             result1(root->left,target,ceil);
+//             return;
+//         }
+//         if(root->val < target){
+//             result1(root->right,target,ceil);
+//             return;
+//         }
+        
+//     }
+//     void result2(TreeNode* root,int target,int &floor){
+//         if(!root) return;
+//         if(root->val == target){
+//             floor = root->val;
+//             return;
+//         }
+//         if(root->val < target){
+//             floor = root->val;
+//             result2(root->right,target,floor);
+//             return;
+//         }
+//         if(root->val > target){
+//             result2(root->left,target,floor);
+//             return;
+//         }
+//     }
+    void inorder(TreeNode* root,vector<int>&v){
+        if(!root) return;
+        inorder(root->left,v);
+        v.push_back(root->val);
+        inorder(root->right,v);
+    }
+    int lower(vector<int>&v,int target){
+        int l = 0,h = v.size()-1;
+        int ans = INT_MIN;
+        while(l <= h){
+            int mid = l + (h-l)/2;
+            if(v[mid] <= target){
+                ans = max(ans,v[mid]);
+                l = mid+1;
+            }
+            else
+                h = mid-1;
+        }
+        return ans;
+    }
+     int upper(vector<int>&v,int target){
+        int l = 0,h = v.size()-1;
+        int ans = INT_MAX;
+        while(l <= h){
+            int mid = l + (h-l)/2;
+            if(v[mid] >= target){
+                ans = min(ans,v[mid]);
+                h = mid-1;
+            }
+            else
+                l = mid+1;
+        }
+        return ans;
+    }
+    vector<vector<int>> closestNodes(TreeNode* root, vector<int>& queries) {
+        vector<vector<int>>ans;
+        // for(int i=0;i<queries.size();i++){
+        //     int floor = INT_MIN, ceil = INT_MAX;
+        //         result1(root,queries[i],ceil);
+        //         result2(root,queries[i],floor);
+        //     if(ceil == INT_MAX)
+        //         ceil = -1;
+        //     if(floor == INT_MIN)
+        //         floor = -1;
+        //      ans.push_back({floor,ceil});
+        //     }
+        // return ans;
+        vector<int>v;
+        inorder(root,v);
+        for(int i=0;i<queries.size();i++){
+           int l = lower(v,queries[i]);
+           int h = upper(v,queries[i]);
+            if(h == INT_MAX)
+                h = -1;
+            if(l == INT_MIN)
+                l = -1;
+            ans.push_back({l,h});
+        }
+        return ans;
+        
+    }
+};
