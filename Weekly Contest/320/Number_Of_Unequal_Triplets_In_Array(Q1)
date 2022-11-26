@@ -1,0 +1,19 @@
+//https://leetcode.com/contest/weekly-contest-320/problems/number-of-unequal-triplets-in-array/
+
+class Solution {
+public:
+    int unequalTriplets(vector<int>& nums) {
+        int count = 0;
+        int n = nums.size();
+        for(int i=0;i<n-2;i++){
+            for(int j = i+1;j<n-1;j++){
+                for(int k = j+1;k<n;k++){
+                    if(nums[i] != nums[j] && nums[j] != nums[k] && nums[k] != nums[i])
+                        count++;
+                }
+            }
+        }
+        return count;
+    }
+};
+
