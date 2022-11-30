@@ -1,0 +1,22 @@
+//https://leetcode.com/problems/unique-number-of-occurrences/description/
+
+class Solution {
+public:
+    bool uniqueOccurrences(vector<int>& arr) {
+        sort(arr.begin(),arr.end());
+        unordered_set<int>s;
+        int diff=1,count =1;
+        for(int i=0;i<arr.size()-1;i++){
+            if(arr[i] == arr[i+1])
+            count++;
+            else{
+                diff++;
+                s.insert(count);
+                count =1;
+            }
+        }
+        s.insert(count);
+        return diff == s.size();
+        
+    }
+};
