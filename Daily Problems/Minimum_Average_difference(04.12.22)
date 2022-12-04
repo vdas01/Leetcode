@@ -1,0 +1,67 @@
+//https://leetcode.com/problems/minimum-average-difference/description/
+
+my TLE solution:-
+class Solution {
+public:
+    int minimumAverageDifference(vector<int>& nums) {
+        int n = nums.size();
+        int minavg = INT_MAX,index =-1;
+        long long left[n],right[n];
+        left[0] = nums[0];
+        right[n-1] = nums[n-1];
+        for(int i=1;i<n;i++)
+        left[i] = left[i-1] + nums[i];
+        for(int i=n-2;i>=0;i--)
+        right[i] = right[i+1] + nums[i];
+        for(int i=0;i<n;i++){
+            // cout<<i<<" "<<i+1<<"=>";
+            int ravg=0 ,lavg =0;
+             lavg = ceil(left[i]/(i+1));
+             cout<<"lavg "<<lavg<<" ";
+            // cout<<n-(n-i-1)<<" "<<n-1-i<<"\n";
+            if(n-(n-1-i) < n)
+            ravg = ceil(right[n-(n-1-i)]/(n-1-i));
+            cout<<"ravg "<<ravg<<" ";
+            int avg = abs(ravg - lavg);
+            cout<<" avg "<<avg<<"\n";
+            if(minavg > avg){
+                minavg = avg;
+                index = i;
+            }
+            else if(minavg == avg && i < index)
+            index= i;
+        }
+        return index;
+    }
+};
+
+
+
+//Accepted
+class Solution {
+public:
+    int minimumAverageDifference(vector<int>& nums) {
+             int n = nums.size();
+             vector<int>left(n),right(n);
+             long long sum =0;
+             for(int i=0;i<n;i++){
+                 sum+=nums[i];
+                 left[i] = sum/(i+1);
+             }
+             sum = 0;
+             right[n-1] = 0;
+             for(int i= n-2;i>=0;i--){
+                  sum += nums[i+1];
+                  right[i] = sum/(n-1-i);
+             }
+             for(int i=0;i<n;i++){
+                 nums[i] = abs(left[i] - right[i]);
+             }
+             int minavg = *min_element(nums.begin(),nums.end());
+             for(int i = 0;i<n;i++){
+                 if(nums[i] == minavg)
+                 return i;
+             }
+             return -1;
+    }
+};
