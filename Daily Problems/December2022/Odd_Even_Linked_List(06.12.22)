@@ -1,0 +1,18 @@
+//https://leetcode.com/problems/odd-even-linked-list/description/
+
+class Solution {
+public:
+    ListNode* oddEvenList(ListNode* head) {
+        if(!head || !head->next)
+        return head;
+        ListNode *even = head->next, *evtail = head->next,*odd = head;
+        while(evtail && evtail->next){
+            odd->next = evtail->next;
+            odd = odd->next;
+            evtail->next = odd->next;
+            evtail = evtail->next;
+        }
+        odd->next = even;
+        return head;
+    }
+};
