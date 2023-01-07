@@ -1,0 +1,46 @@
+//https://leetcode.com/problems/gas-station/description/
+
+//BRUTE_FORCE
+class Solution {
+public:
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        int n = cost.size();
+        for(int i=0;i<cost.size();i++){
+            if(gas[i] < cost[i])
+            continue;
+            int j= (i+1)%n;
+            int cgas = gas[i] - cost[i] + gas[j];
+            while(j != i){
+                if(cgas < cost[j])
+                break;
+                cgas = cgas - cost[j] + gas[(j+1)%n];
+                j = (j+1)%n;
+            }
+            if(j==i)
+            return i;
+        }
+        return -1;
+    }
+};
+
+
+//Optimized:- O(N)
+class Solution {
+public:
+    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
+        int n = cost.size();
+        int rindex = 0,totalcost = 0,currcost = 0;
+        for(int i=0;i<n;i++){
+            totalcost = totalcost + (gas[i] - cost[i]);
+            currcost = currcost + (gas[i] - cost[i]);
+
+            if(currcost < 0){
+                currcost = 0;
+                rindex = i+1;
+            }
+        }
+        if(totalcost>=0)
+        return rindex;
+        return -1;
+    }
+};
