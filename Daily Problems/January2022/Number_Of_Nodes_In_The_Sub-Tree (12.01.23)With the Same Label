@@ -1,0 +1,33 @@
+//https://leetcode.com/problems/number-of-nodes-in-the-sub-tree-with-the-same-label/description/
+class Solution {
+public:
+    vector<int>dfs(int s,vector<vector<int>>&graph,string &labels,vector<bool>&visited,
+    vector<int>&ans){
+        visited[s] = true;
+        vector<int>temp(26);
+        for(auto it:graph[s]){
+            if(!visited[it]){
+            vector<int>temp2 = dfs(it,graph,labels,visited,ans);
+            temp[labels[it] - 'a']++;
+            for(int i=0;i<26;i++){
+                temp[i]+=temp2[i];
+            }
+            }
+        }
+        ans[s] += temp[labels[s]-'a']+1;
+        return temp;
+    }
+    vector<int> countSubTrees(int n, vector<vector<int>>& edges, string labels) {
+        vector<int>ans(n);
+        vector<vector<int>>graph(n);
+        vector<bool>visited(n,false);
+        for(int i=0;i<edges.size();i++){
+            graph[edges[i][0]].push_back(edges[i][1]);
+             graph[edges[i][1]].push_back(edges[i][0]);
+        }
+        dfs(0,graph,labels,visited,ans);
+        return ans;
+    }
+};
+
+
