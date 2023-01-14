@@ -1,0 +1,24 @@
+//https://leetcode.com/problems/lexicographically-smallest-equivalent-string/description/
+
+class Solution {
+public:
+    string smallestEquivalentString(string s1, string s2, string baseStr) {
+        char v[26];
+        for(int i=0;i<26;i++){
+            v[i] = 'a' + i;
+        }
+        for(int i=0;i<s1.length();i++){
+            char to_replace = max(v[s1[i] - 'a'],v[s2[i]-'a']);
+            char replace_with = min(v[s1[i] - 'a'],v[s2[i]-'a']);
+            for(int i=0;i<26;i++){
+                if(v[i] == to_replace)
+                v[i] = replace_with;
+            }
+            v[to_replace - 'a'] = replace_with;
+        }
+        for(int i=0;i<baseStr.length();i++){
+            baseStr[i] = v[baseStr[i] - 'a'];
+        }
+        return baseStr;
+    }
+};
