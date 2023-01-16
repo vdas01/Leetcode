@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<vector<int>> insert(vector<vector<int>>& intervals, vector<int>& newInterval) {
+        vector<vector<int>>v;
+        bool insert = false;
+        for(auto it:intervals){
+            if(!insert){
+           if(it[1] < newInterval[0])
+           v.push_back(it);
+           else if(it[0] > newInterval[1]){
+              v.push_back(newInterval);
+              newInterval[0] = it[0];
+              newInterval[1] = it[1];
+           }
+           else {
+              newInterval[0] = min(it[0],newInterval[0]);
+              newInterval[1] = max(it[1],newInterval[1]);
+           }
+        }
+     }
+      v.push_back(newInterval);
+        return v;
+    }
+};
