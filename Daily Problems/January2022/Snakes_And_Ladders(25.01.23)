@@ -1,0 +1,51 @@
+//https://leetcode.com/problems/snakes-and-ladders/description/
+
+class Solution {
+public:
+    pair<int,int> getCoord(int num,int n){
+        int row = (num-1)/n;
+        row = (n-row)-1;
+        
+        int col = (num-1)%n;
+        if((n%2 == 1 && row%2 == 1) || (n%2 == 0 && row%2 == 0))
+        col = (n-col)-1;
+      
+        return {row,col};
+    }
+    int snakesAndLadders(vector<vector<int>>& board) {
+        int n = board.size();
+        int steps =0;
+        queue<int>q;
+        vector<vector<bool>>visited(n,vector<bool>(n,false));
+        visited[n-1][0] = true;
+        q.push(1);
+
+        while(!q.empty()){
+            int s = q.size();
+            while(s--){
+                int ele = q.front();
+                q.pop();
+                if(ele == n*n)
+                return steps;
+                for(int k = 1;k<=6;k++){
+                    int val = ele+k;
+                    if(val > n*n)
+                    break;
+
+                    pair<int,int>cord = getCoord(val,n);
+                    int r = cord.first, c = cord.second;
+                    if(visited[r][c] == true)
+                    continue;
+
+                    visited[r][c] = true;
+                    if(board[r][c] == -1)
+                    q.push(val);
+                    else
+                    q.push(board[r][c]);
+                }
+            }
+            steps++;
+        }
+        return -1;
+    }
+};
