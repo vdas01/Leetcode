@@ -1,0 +1,42 @@
+//https://leetcode.com/problems/asteroid-collision/description/
+
+class Solution {
+public:
+    vector<int> asteroidCollision(vector<int>& asteroids) {
+        stack<int>st;
+        for(int i=0;i<asteroids.size();i++){
+            int curr = asteroids[i];
+            if(st.empty())
+            st.push(asteroids[i]);
+            else if(curr < 0){
+                if(st.top() > 0){
+                while(!st.empty() && st.top() > 0){
+                    if(abs(curr) < abs(st.top()))
+                    break;
+                    else if(abs(curr) == st.top()){
+                        st.pop();
+                        break;
+                    }
+                    else{
+                        st.pop();
+                    }
+                    if(st.empty() || st.top() < 0)
+                    st.push(curr);
+                }
+              }
+              else if(st.top() < 0)
+              st.push(curr);
+            }
+            else if(curr > 0)
+            st.push(curr);
+        }
+
+vector<int>ans;
+        while(!st.empty()){
+            ans.push_back(st.top());
+            st.pop();
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+    }
+};
