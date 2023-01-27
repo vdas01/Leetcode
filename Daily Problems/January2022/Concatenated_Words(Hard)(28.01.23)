@@ -1,0 +1,30 @@
+//https://leetcode.com/problems/concatenated-words/description/
+
+class Solution {
+public:
+bool result(int idx,unordered_set<string>&m,string &s,int count){
+    if(idx == s.length())
+    return count > 1;
+    string temp = "";
+    for(int i=idx;i<s.length();i++){
+        temp+=s[i];
+        if(m.find(temp) != m.end()){
+          if(result(i+1,m,s,count+1))
+            return true;
+        }
+    }
+    return false;
+}
+    vector<string> findAllConcatenatedWordsInADict(vector<string>& words) {
+         unordered_set<string>st;
+         for(int i=0;i<words.size();i++){
+             st.insert(words[i]);
+         }
+         vector<string>v;
+         for(int i=0;i<words.size();i++){
+             if(result(0,st,words[i],0))
+             v.push_back(words[i]);
+         }
+         return v;
+    }
+};
