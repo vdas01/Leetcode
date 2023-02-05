@@ -1,0 +1,28 @@
+//https://leetcode.com/contest/biweekly-contest-97/problems/separate-the-digits-in-an-array/
+
+class Solution {
+public:
+    void result(vector<int>&ans,int ele){
+        if(ele >=1 && ele <= 9){
+            ans.push_back(ele);
+            return;
+        }
+        int t = ele%10;
+        ele/=10;
+        result(ans,ele);
+        ans.push_back(t);
+    }
+    vector<int> separateDigits(vector<int>& nums) {
+        vector<int>ans;
+        int n = nums.size();
+        for(int i=0;i<n;i++){
+            int ele = nums[i];
+           if(ele >=1 && ele<=9)
+               ans.push_back(ele);
+            else
+                result(ans,ele);
+        }
+        return ans;
+    }
+};
+
