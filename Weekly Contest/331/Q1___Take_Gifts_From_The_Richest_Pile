@@ -1,0 +1,33 @@
+//https://leetcode.com/contest/weekly-contest-331/problems/take-gifts-from-the-richest-pile/
+
+class Solution {
+public:
+    long long pickGifts(vector<int>& gifts, int k) {
+        priority_queue<long long>pq(gifts.begin(),gifts.end());
+        long long sum = 0;
+        // for(int i=0;i<gifts.size();i++){
+        //     pq.push(gifts[i]);
+        //     sum+=gifts[i];
+        // }
+        while(k>0){
+            
+            k--;
+            int ele = pq.top();
+            pq.pop();
+            // sum-=ele;
+            // cout<<ele<<" "<<floor(sqrt(ele))<<"\n";
+            int left = floor(sqrt(ele));
+            cout<<left<<" ";
+            pq.push(left);
+            // sum+=left;
+        }
+        cout<<"\n";
+        while(pq.size()){
+            cout<<pq.top()<<" ";
+            sum+=pq.top();
+            pq.pop();
+        }
+        return sum;
+    }
+};
+
