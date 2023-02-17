@@ -1,0 +1,23 @@
+//
+
+class Solution {
+public:
+   void result(TreeNode* root,vector<int>&ans){
+           if(!root)
+           return;
+           result(root->left,ans);
+           ans.push_back(root->val);
+           result(root->right,ans);
+
+   }
+    int minDiffInBST(TreeNode* root) {
+        vector<int>ans;
+        result(root,ans);
+        int n = ans.size();
+        int diff= INT_MAX;
+        for(int i=0;i<n-1;i++){
+           diff = min(diff,abs(ans[i]-ans[i+1]));
+        }
+        return diff;
+    }
+};
