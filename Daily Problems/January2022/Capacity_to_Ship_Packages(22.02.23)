@@ -1,0 +1,44 @@
+//https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/description/
+
+class Solution {
+public:
+    bool isPossible(int target,vector<int>weights,int days){
+        int sum = 0,count = 1;
+        for(int i=0;i<weights.size();i++){
+            if(sum + weights[i] <= target){
+                sum+=weights[i];
+            }
+            else{
+                if(weights[i] > target)
+                return false;
+                sum = weights[i];
+                count++;
+            }
+        }
+        return count <= days;
+    }
+    int shipWithinDays(vector<int>& weights, int days) {
+        int sum=0,large = 0;
+        int ans=0;
+        for(int i=0;i<weights.size();i++){
+            sum+= weights[i];
+            large = max(weights[i],large);
+            
+        }
+        if(days == 1)
+        return sum;
+        if(days == weights.size())
+        return large;
+        int low = large,high = sum;
+        while(low <= high){
+            int mid = ((high - low)/2) + low;
+            if(isPossible(mid,weights,days)){
+                ans = mid;
+                high = mid-1;
+            }
+            else
+            low = mid+1;
+        }
+        return ans;
+    }
+};
