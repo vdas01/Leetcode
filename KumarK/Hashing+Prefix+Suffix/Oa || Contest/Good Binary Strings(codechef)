@@ -1,0 +1,41 @@
+//https://www.codechef.com/problems/GOODBINSTR
+
+#include <iostream>
+using namespace std;
+
+int main() {
+	// your code goes here
+	int t;
+	cin>>t;
+	while(t--){
+	    string s;
+	    cin>>s;
+	    if(s[0] != s[s.length()-1])
+	    cout<<2<<"\n";
+	    else
+	    cout<<s.length()-2<<"\n";
+	}
+	return 0;
+}
+
+
+OBSERVATION:-
+1) for middle part excluding first and last bit:-
+At index i:-
+ if(arr[i-1] != arr[i+1])
+  then no change in 01 and 10
+ else if(arr[i-1] == arr[i+1]){
+    if(arr[i] != arr[i-1])
+    then decrease both 01 and 10 by 1
+    else
+    increase both 01 and 10 by 1
+ }
+ 
+So there will be no change in no of 01 and 10 if we change middle bits
+
+2) Now coming to extreme ends:-
+if(arr[0] == arr[n-1])
+then no of 01 and 10 will always be equal as it will balance itself so we can flip (n-2) bits as it will not affect flipping middle
+else
+we can flip both arr[0] and arr[n-1] which wil make no of 01 and 10 equal.
+so here ans will be 2.
