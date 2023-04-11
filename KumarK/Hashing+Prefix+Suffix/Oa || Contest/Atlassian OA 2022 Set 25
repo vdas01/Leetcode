@@ -1,0 +1,120 @@
+//https://www.desiqna.in/7299/atlassian-sde1-coding-questions-solutions-2022-oncampus-2022
+#include <bits/stdc++.h>
+
+using namespace std;
+typedef long long int ll ;
+int main() {
+
+    ll n;
+    cin>>n;
+    ll a[n+1];
+     ll k;
+    cin>>k;
+    ll i = 1 ;
+    while(i<=n){
+        cin>>a[i];
+        i++;
+    }
+    sort(a+1,a+n+1);
+
+    // i = 1 ;
+    // while(i<=n){
+    //     cout<<a[i]<<" ";
+    //     i++;
+    // }
+
+    // cout<<"\n";
+
+    ll pref[n+1]={0};
+
+    i = 1 ;
+    while(i<=n){
+        pref[i] = pref[i-1] + a[i];
+        i++;
+    }
+   
+   
+
+    ll my = 1e18 ;
+    i = 1 ;
+    while(i<=n-k+1){
+
+        ll start = i ;
+        ll d = k + i - 1 ; 
+
+        if(k%2!=0){
+            ll md = (start+d)/2;
+            //start-->md-1
+            ll l1 = abs(md-start);
+            ll sum1 = pref[md-1]-pref[start-1]; //pref[y]-pref[x-1]
+            ll ans1 = abs(l1*a[md] - sum1);
+            //md+1-->d
+
+            ll l2 = abs(d-md);
+
+            ll sum2 = pref[d]-pref[md]; //pref[y]-pref[x-1]
+
+            ll ans2 = abs(l2*a[md] - sum2);
+
+            ll final_ans = ans1 + ans2 ;
+            my = min(my,final_ans);
+           
+
+        } else {
+
+            ll md1 = (start+d)/2;
+            ll md2 = md1+1;
+           
+
+            //start-->md-1
+
+            ll l1 = abs(md1-start);
+
+            ll sum1 = pref[md1-1]-pref[start-1]; //pref[y]-pref[x-1]
+
+            ll ans1 = abs(l1*a[md1] - sum1);
+           
+           
+
+            //md+1-->d
+
+            ll l2 = abs(d-md1);
+
+            ll sum2 = pref[d]-pref[md1]; //pref[y]-pref[x-1]
+
+            ll ans2 = abs(l2*a[md1] - sum2);
+
+            ll final_ans = ans1 + ans2 ;
+            my = min(my,final_ans);
+
+            //cout<<i<<" "<<final_ans;
+            //cout<<"\n";
+
+              //start-->md-1
+
+            l1 = abs(md2-start);
+
+            sum1 = pref[md2-1]-pref[start-1]; //pref[y]-pref[x-1]
+
+            ans1 = abs(l1*a[md2] - sum1);
+           
+           
+
+            //md+1-->d
+
+            l2 = abs(d-md2);
+
+            sum2 = pref[d]-pref[md2]; //pref[y]-pref[x-1]
+
+            ans2 = abs(l2*a[md2] - sum2);
+
+            final_ans = ans1 + ans2 ;
+            my = min(my,final_ans);
+           //  cout<<i<<" "<<final_ans;
+            //cout<<"\n";
+        }
+        i++;
+    }
+    cout<<my ;
+    return 0 ;
+}
