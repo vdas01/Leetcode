@@ -1,0 +1,30 @@
+//https://leetcode.com/problems/find-the-score-of-all-prefixes-of-an-array/description/
+
+
+class Solution {
+public:
+    vector<long long> findPrefixScore(vector<int>& nums) {
+        long long n = nums.size();
+        vector<long long>prefix(n);
+        vector<long long>conver(n);
+        vector<long long>score(n);
+        prefix[0] = nums[0];
+       
+        for(int i=1;i<nums.size();i++){
+            prefix[i] = (prefix[i-1] > nums[i]) ? prefix[i-1] : nums[i];
+         
+        }
+        //prefix:- [2,3,7,7,10]
+        for(int i=0;i<nums.size();i++){
+            conver[i] = nums[i] + prefix[i];
+            cout<<conver[i] <<" ";
+        }
+        //[4,6,14,12,20]
+        long long sum = 0;
+        for(int i=0;i<nums.size();i++){
+            sum+=conver[i];
+            score[i] = sum;
+        }
+        return score;
+    }
+};
