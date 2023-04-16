@@ -1,0 +1,23 @@
+//https://leetcode.com/contest/weekly-contest-341/problems/find-the-maximum-divisibility-score/
+
+class Solution {
+public:
+    int maxDivScore(vector<int>& nums, vector<int>& divisors) {
+        int ind = 0,count = 0;
+        for(int i=0;i<divisors.size();i++){
+            int ele = divisors[i] , c = 0;
+            for(int j=0;j<nums.size();j++){
+                if(nums[j] % ele == 0)
+                    c++;
+            }
+            if(c > count){
+                count = c;
+                ind = i;
+            }
+            else if(c == count && divisors[ind] > divisors[i]){
+                ind = i;
+            }
+        }
+        return divisors[ind];
+    }
+};
