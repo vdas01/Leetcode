@@ -1,0 +1,25 @@
+//https://www.desiqna.in/5629/google-oa-coding-questions-and-solutions-set-13-2022
+
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    int n,c,d;
+    cin>>n>>c>>d;
+    vector<int>a(n),b(n);
+    for(int i=0;i<n;i++)
+    cin>>a[i];
+    for(int i=0;i<n;i++)
+    cin>>b[i];
+    unordered_map<int,int>m;
+    int j = 0, k = d-c;
+    int count = 0;
+    while(j<n){
+        int y = (a[j] - b[j]) + k;
+        int c = m[y];
+        count+=c;
+        m[a[j] - b[j]]++;
+        j++; 
+    }
+    cout<<count<<"\n";
+
+}
