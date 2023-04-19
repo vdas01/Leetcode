@@ -1,0 +1,30 @@
+//https://leetcode.com/contest/biweekly-contest-102/problems/cousins-in-binary-tree-ii/
+
+class Solution {
+    map<int,int>m;
+public:
+    void dfs(TreeNode* root,int level){
+        if(!root) return;
+        m[level] += root->val;
+        dfs(root->left,level+1);
+        dfs(root->right,level+1);
+    }
+    void solve(TreeNode* root,int sibling=0,int level=0){
+        if(!root)
+            return;
+        int lVal =0;
+        if(root->left)
+             lVal = root->left->val;
+        solve(root->left,root->right ? root->right->val:0,level+1);
+        solve(root->right,lVal,level+1);
+        root->val = m[level] - ( root->val + sibling);
+    }
+    TreeNode* replaceValueInTree(TreeNode* root) { 
+        if(!root)
+            return root;
+        dfs(root,0);
+        solve(root);
+        
+        return root;
+    }
+};
