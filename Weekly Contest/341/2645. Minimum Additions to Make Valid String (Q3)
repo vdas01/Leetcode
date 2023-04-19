@@ -1,0 +1,31 @@
+//https://leetcode.com/contest/weekly-contest-341/problems/minimum-additions-to-make-valid-string/
+
+class Solution {
+public:
+    bool result(string word,string s){
+    int i = 0,j=0;
+    int n = word.length(),m = s.length();
+    int c = 0;
+    while(i<n && j<m){
+        if(word[i] == s[j]){
+            i++;
+        
+        }
+        j++;
+    }
+   return i == n;
+}
+    int addMinimum(string word) {
+         int n  = word.length();
+          string s = "abc";
+
+      while(true){
+         if(result(word,s)){
+            return s.length() - word.length();
+        }
+        else
+        s+="abc";
+      }
+        return 0;
+    }
+};
