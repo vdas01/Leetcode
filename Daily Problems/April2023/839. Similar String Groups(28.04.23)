@@ -44,6 +44,74 @@ bool isSame(string s1,string s2){
 };
 
 
+//Approach 2:-
+
+class Solution {
+public:
+  bool isSame(string str1,string str2){
+      if(str1.length() != str2.length())
+      return false;
+      if(str1 == str2)
+      return true;
+      int count = 0;
+      for(int i=0;i<str1.length();i++){
+          if(str1[i] != str2[i])
+          count++;
+      }
+      return count == 2;
+  }
+  void dfs(int s,vector<bool>&visited,vector<int>adj[]){
+      visited[s] = true;
+      for(auto it:adj[s]){
+          if(!visited[it])
+          dfs(it,visited,adj);
+      }
+  }
+  void bfs(int s,vector<bool>&visited,vector<int>adj[]){
+      queue<int>q;
+      q.push(s);
+      while(!q.empty()){
+          int temp = q.front();
+          q.pop();
+          visited[temp] = true;
+          for(auto it:adj[temp]){
+              if(!visited[it]){
+                  q.push(it);
+              }
+          }
+      }
+  }
+    int numSimilarGroups(vector<string>& strs) {
+        int n = strs.size();
+          vector<int>adj[n];
+          for(int i=0;i<strs.size();i++){
+              for(int j=i+1;j<strs.size();j++){
+                  if(isSame(strs[i],strs[j])){
+                      adj[i].push_back(j);
+                      adj[j].push_back(i);
+                  }
+              }
+          }
+          int count = 0;
+          vector<bool>visited(n,false);
+          for(int i = 0;i<n;i++){
+              for(auto it:adj[i]){
+                  cout<<it<<" ";
+              }
+              cout<<"\n";
+          }
+          for(int i=0;i<visited.size();i++){
+              if(!visited[i]){
+                   count++;
+                //    dfs(i,visited,adj);
+                   bfs(i,visited,adj);
+              }
+          }
+        
+          return count;
+    }
+};
+
 
 
 
