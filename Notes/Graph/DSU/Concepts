@@ -11,6 +11,7 @@ find(c):- tells the ultimate parent of node c
 find(d):- tells the ultimate parent of node d
 if both have same parent then they belong to same set
 
+```
 int find(int i,vector<int> &parent){
   if(i == parent[i])
   return i;
@@ -24,14 +25,17 @@ void Union(int x,int y,vector<int> &parent){
       parent[px] = py;
    }
 }
+```
 But here doing union like this will increase the length of set which will result in nearly o(n) in union find or find of parent.
 
 To optimize we can do path compression:- 
+```
 int find(int i,vector<int> &parent){
   if(i == parent[i])
   return i;
    return parent[i]  = find(parent[i]);
 }
+```
 
 More optimise using rank in Union.
 Steps:-
@@ -40,6 +44,7 @@ Steps:-
   if rank of a > rank of b then parent[b] = a; 
 3) When we find rank then we find rank of their ultimate rank
 
+```
 void Union(int x,int y,vector<int> &parent){
    int px = find(x,parent),py = find(y,parent);
     if(px == py)
@@ -54,20 +59,21 @@ void Union(int x,int y,vector<int> &parent){
           rank[py]++;
      }
 }
+```
 
-
+```
 class DSU {
     private:
         vector<int> parent;
         vector<int> rank;
-        int components;
+
 
     public : 
         
         DSU(int n) {
             parent.resize(n+1);
             rank.resize(n+1);
-            components = n;
+           
             for(int i = 1; i<=n; i++) {
                 parent[i] = i;
             }
@@ -95,14 +101,11 @@ class DSU {
                 parent[x_parent] = y_parent;
                 rank[y_parent]++;
             }
-            components--;
+         
         }
     
-        bool isSingle() {
-            return components == 1;
-        }
 };
-
+```
 
 
 
