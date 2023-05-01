@@ -61,7 +61,7 @@ class Solution {
             path.push_back(node);
             node = parent[node];
         }
-        path.push_back(1);
+        path.push_back(1); //source
         reverse(begin(path), end(path));
 		return path;
     }
