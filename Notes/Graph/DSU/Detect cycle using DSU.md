@@ -1,4 +1,4 @@
-
+```
 int find(int a){
      if(par[a]==a) return a;
       return par[a] = find(par[a]);
@@ -39,3 +39,4 @@ for(int i=0;i<V;i++){
    }
 return false;
 }
+```
