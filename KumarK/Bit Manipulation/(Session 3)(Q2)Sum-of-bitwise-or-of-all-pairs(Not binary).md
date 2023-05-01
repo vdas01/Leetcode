@@ -7,6 +7,8 @@ col -> 0  1   2   3
   1       0   1   1   ----->>sum+= total_valid_pairs * (2^row)
   2       0   0   0  --->>>sum+= total_valid_pairs * (2^row)
   
+  
+ ``` 
   #include <bits/stdc++.h>
 using namespace std;
 int main() {
