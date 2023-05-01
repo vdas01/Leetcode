@@ -1,0 +1,50 @@
+
+
+
+class Solution {
+public:
+   int find(int s,vector<int>&parent){
+       if(parent[s] == s)
+       return s;
+       return parent[s] = find(parent[s],parent);
+   }
+    void Union(int u,int v,vector<int> &rank,vector<int> &parent){
+        int pu = find(u,parent),pv = find(v,parent);
+        if(pu == pv)
+        return;
+        if(rank[pu] < rank[pv]){
+            parent[pu] = pv;
+        }
+        else {
+            parent[pv] = pu;
+            if(rank[pu] == rank[pv])
+            rank[pv]++;
+        }
+    
+    }
+    bool equationsPossible(vector<string>& equations) {
+        int n = equations.size();
+        vector<int>parent(26),rank(26);
+        for(int i=0;i<26;i++){
+            parent[i] = i;
+            rank[i] = 1;
+        }
+        for(int i=0;i<n;i++){
+            char sign = equations[i][1];
+            if(sign == '='){
+                int u = (equations[i][0]-'a'),v=  (equations[i][3]-'a');
+               Union(u,v,rank,parent);
+            }
+        }
+        for(int i=0;i<n;i++){
+            char sign = equations[i][1];
+            if(sign == '!'){
+                 int u = (equations[i][0]-'a'),v=  (equations[i][3]-'a');
+                int px = find(u,parent),py = find(v,parent);
+                if(px == py)
+                return false;
+            }
+        }
+        return true;
+    }
+};
