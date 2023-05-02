@@ -1,0 +1,31 @@
+//https://leetcode.com/contest/weekly-contest-343/problems/minimum-cost-of-a-path-with-special-roads/
+
+class Solution {
+public:
+    int minimumCost(vector<int>& start, vector<int>& target, vector<vector<int>>& specialRoads) {
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
+        int n = specialRoads.size();
+        vector<int>dist(n,INT_MAX);
+        for(int i=0;i<n;i++){
+            dist[i] = abs(start[0] - specialRoads[i][0]) + abs(start[1] - specialRoads[i][1]) + 
+                      specialRoads[i][4];
+            pq.push({dist[i],i});
+        }
+      int ans = abs(target[0] - start[0]) + abs(target[1] - start[1]);
+        while(!pq.empty()){
+           auto [dis,idx] = pq.top();
+           pq.pop();
+           if(dis != dist[idx]) continue;
+           ans = min(ans,dis + abs(target[0] - specialRoads[idx][2]) + abs(target[1] - specialRoads[idx][3]));
+          for(int nxt = 0;nxt < n;nxt++){
+              int curr_dist = abs(specialRoads[idx][2] - specialRoads[nxt][0]) + abs(specialRoads[idx][3]
+                               - specialRoads[nxt][1]) + dis;
+              if(dist[idx] > curr_dist){
+                  dist[idx] = curr_dist;
+                  pq.push({curr_dist,nxt});
+               }
+            }
+        }
+        return ans;
+}
+};
