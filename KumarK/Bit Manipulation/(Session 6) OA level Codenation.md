@@ -36,6 +36,7 @@ int main() {
             if(b[j]%2!=0){
                 ll vv = (1<<j);
                 gg = (gg)^(vv);
+                //xor for adding 2^j to gg
             }
             
             
@@ -46,10 +47,10 @@ int main() {
         
         //cout<<gg;--->decimal conversion of current status....
         
-        
+        //kk is map is checking how much time same decimal number gg has come before and it add to osi
         osi = osi + kk[gg] ; 
         
-        
+        //now it add current decimal number pattern to map;
         kk[gg] = kk[gg] + 1 ;
         
         
