@@ -13,6 +13,8 @@ Input :
 
 Output : 2xor7 + 2xor1 + 2xor5 + 2xor8 + 7xor1 + 7xor5 + 7xor8 + 1xor5 + 1xor8 + 5xor8 = 74
 ```
+
+```
 long long int sumXOR(int array[], int length) {
     long long int result = 0;
     for (int i = 0; i < 31; i++) {
@@ -33,6 +35,8 @@ long long int sumXOR(int array[], int length) {
     return result;
 
     }
+```
+```
 //Python code
 
 class Solution:
@@ -53,7 +57,8 @@ class Solution:
             sum += oc * zc * (1 << i)
          
         return sum
-
+```
+```
 //java code
 
     public long sumXOR (int arr[], int n) {
