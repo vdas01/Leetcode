@@ -1,0 +1,38 @@
+//https://leetcode.com/problems/maximum-number-of-vowels-in-a-substring-of-given-length/description/
+
+class Solution {
+public:
+    int maxVowels(string s, int k) {
+        int n = s.length();
+        unordered_map<char,int>m;
+        set<char>st;
+        st.insert('a');
+        st.insert('e');
+        st.insert('i');
+        st.insert('o');
+        st.insert('u');
+        int ans = 0,count= 0;
+        for(int i=0;i<k;i++){
+             if(st.find(s[i]) != st.end()){
+                 m[s[i]]++;
+                 count++;
+             }
+        }
+        ans = max(ans,count);
+        for(int i=k;i<n;i++){
+            if(m.find(s[i-k]) != m.end()){
+                m[s[i-k]]--;
+                if(m[s[i-k]] == 0)
+                m.erase(s[i-k]);
+                count--;
+            }
+            if(st.find(s[i]) != st.end()){
+                m[s[i]]++;
+                count++;
+            }
+            ans = max(ans,count);
+        }
+        return ans;
+
+    }
+};
