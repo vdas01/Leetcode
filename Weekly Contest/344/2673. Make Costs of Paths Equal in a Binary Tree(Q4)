@@ -1,0 +1,20 @@
+//https://leetcode.com/problems/make-costs-of-paths-equal-in-a-binary-tree/description/
+
+class Solution {
+public:
+int ans  =0 ; 
+   int result(int i,int n,vector<int>&cost){
+       if(i > n)
+       return 0;
+       int left = result(2*i,n,cost);
+       int right = result((2*i)+1,n,cost);
+
+       ans+=abs(right-left);
+       return cost[i-1] + max(left,right);
+   }
+    int minIncrements(int n, vector<int>& cost) {
+        
+       result(1,n,cost);
+       return ans;
+    }
+};
