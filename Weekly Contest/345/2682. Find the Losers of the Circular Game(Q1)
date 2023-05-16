@@ -1,0 +1,21 @@
+//https://leetcode.com/contest/weekly-contest-345/problems/find-the-losers-of-the-circular-game/
+
+class Solution {
+public:
+    vector<int> circularGameLosers(int n, int k) {
+        vector<int>ans(n,0);
+        vector<int>res;
+        int index = 0;
+        int value = 0;
+        while(ans[index] == 0){
+            ans[index] = 1;
+            value+=k;
+            index = (index + value)%n;
+        }
+        for(int i=0;i<ans.size();i++){
+            if(ans[i] == 0)
+            res.push_back(i+1);
+        }
+        return res;
+    }
+};
