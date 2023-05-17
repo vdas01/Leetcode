@@ -1,0 +1,41 @@
+//https://leetcode.com/problems/maximum-twin-sum-of-a-linked-list/description/
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+ListNode* reverse(ListNode* head){
+    ListNode *curr = head,*prev = NULL , *nex;
+    while(curr){
+        nex = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = nex;
+    }
+    return prev;
+}
+    int pairSum(ListNode* head) {
+        ListNode* fast = head, *slow = head;
+        while(fast && fast->next->next){
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        slow = slow->next;
+        ListNode* temp2 = reverse(slow);
+        int sum = 0;
+         while(temp2){
+             sum =max(sum ,head->val + temp2->val);
+             head = head->next;
+             temp2 = temp2->next;
+         }
+         return sum;
+    }
+};
