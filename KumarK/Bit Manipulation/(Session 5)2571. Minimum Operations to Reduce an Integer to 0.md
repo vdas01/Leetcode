@@ -1,3 +1,4 @@
+//https://leetcode.com/problems/minimum-operations-to-reduce-an-integer-to-0/description/
 ## Approach 1:-
 ### Iterate over the number from right and if we get continous one then we will add 2^i to them which convert them into single one and then 
 ### when we find single one then we will subtract 2^i from it which will lead to 0.
