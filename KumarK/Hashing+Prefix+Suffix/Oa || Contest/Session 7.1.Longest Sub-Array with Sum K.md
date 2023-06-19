@@ -1,0 +1,23 @@
+//https://practice.geeksforgeeks.org/problems/longest-sub-array-with-sum-k0809/1?utm_source=gfg&utm_medium=article&utm_campaign=bottom_sticky_on_article
+
+```
+class Solution{
+    public:
+    int lenOfLongSubarr(int A[],  int N, int K) 
+    { 
+        // Complete the function
+      map<int,int>m;
+      int sum =0,ans=0;
+      m[0] = -1;
+      for(int i=0;i<N;i++){
+          sum+=A[i];
+          if(m.find(sum - K) != m.end()){
+              ans=max(ans,i-m[sum-K]);
+          }
+          if(m.find(sum) == m.end())
+          m[sum] = i;
+      }
+      return ans;
+    } 
+
+};
