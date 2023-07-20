@@ -1,0 +1,12 @@
+Node *result(Node *root, Node *p,Node *q){
+    if(!root || root == p || root == q)
+       return root;
+    Node *left = result(root->left,p,q);
+   Node *right = result(root->right,p,q);
+   if(left == null)
+return right;
+if(right == null)
+return left;
+return root;
+
+}
