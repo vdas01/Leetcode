@@ -1,0 +1,24 @@
+//https://leetcode.com/contest/weekly-contest-355/problems/largest-element-in-an-array-after-merge-operations/
+
+```
+class Solution {
+public:
+    long long maxArrayValue(vector<int>& nums) {
+        int n = nums.size();
+      long long prev = nums[n-1];
+        long long ele = prev;
+        int i = n-2;
+        while(i >=0){
+            if(nums[i] <= prev){
+                prev += nums[i];
+            }
+            else{
+                prev = nums[i];
+            }
+            ele = max(ele,prev);
+            i--;
+        }
+        
+        return ele;
+    }
+};
